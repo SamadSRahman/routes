@@ -12,14 +12,14 @@ import BrandStory from './pages/BrandStory'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Highlights from './pages/Highlights'
+import Home from './pages/Home'
 function App() {
  
 
   return (
     <BrowserRouter>
     <Routes>
-      {/* <Route path='/' element={<div>Landing</div>}/>
-      <Route path='/' element={<div>Contact us</div>}/> */}
+    
 
       <Route path='/address' element={<Address/>}/>
       <Route path='/' element={<CatchAllRoute/>}/>
