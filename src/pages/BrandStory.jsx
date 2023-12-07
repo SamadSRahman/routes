@@ -61,7 +61,7 @@ let targetObject = null
   return (
     <>
       {/* Render the Builder page */}
-      <BuilderComponent model="page" data={{data:data, logo:logo}} content={content} />
+      <BuilderComponent model="page" data={{data:data, logo:logo, buttonText:"View More", style : "9.2rem"}} content={content} />
   
     </>
   );
