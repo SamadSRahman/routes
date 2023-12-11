@@ -78,7 +78,7 @@ useEffect(()=>{
   return (
     <>
       {/* Render the Builder page */}
-      <BuilderComponent model="page" data={{ selectedStory:data, story:story, buttonText:"View More", style : "9.2rem",params:brandName}} content={content} />
+      <BuilderComponent model="page" data={{selectedImgIndex:0,organisation:organisation, selectedStory:data, story:story, buttonText:"View More", style : "9.2rem",params:brandName}} content={content} />
   
     </>
   );
