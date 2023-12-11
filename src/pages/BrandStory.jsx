@@ -12,22 +12,39 @@ builder.init("403c31c8b557419fb4ad25e34c2b4df5");
 // and render the content if found
 export default function BrandStory() {
   const {story} = useParams()
+  const {brandName} = useParams()
   const isPreviewingInBuilder = useIsPreviewing();
   const [notFound, setNotFound] = useState(false);
   const [content, setContent] = useState(null);
+  const [organisation, setOrganisation] = useState(null)
   const [data, setData] = useState(null)
   const [logo, setLogo] = useState(null)
+  const [selectedImgIndex, setSelectedImgIndex] = useState(0)
 let targetObject = null
   // get the page content from Builder
   useEffect(()=>{
-    fetch("https://ayathanapayload.payloadcms.app/api/organizationResponse/6569d21b1291e7e3871d9764?locale=undefined&draft=false&depth=8")
+    fetch("https://ayathanapayload.payloadcms.app/api/eventResponse/657198981ec3417c48e421bb?locale=undefined&draft=false&depth=8")
     .then((resposne)=>resposne.json())
     .then((data)=>{
-      setLogo(data.logo.url)
-    targetObject = data.brand_story.find(brandStory => brandStory.tabTitle === story);
+      console.log(data)
+      setOrganisation(data.organization.find((brand)=>brand.name===brandName))
+    targetObject = data.organization.find((brand)=>brand.name===brandName).brand_story.find((bStory)=>bStory.tabTitle===story);
     setData(targetObject)
     })
     .catch((error)=>console.log(error))
+},[])
+useEffect(()=>{
+  console.log(data)
+    setInterval(()=>{
+     
+      if(data){
+        if(selectedImgIndex<data)
+        setSelectedImgIndex(selectedImgIndex+1)
+      }
+      else{
+        setSelectedImgIndex(0)
+      }
+    },5000)
 },[])
    useEffect(() => {
     async function fetchContent() {
@@ -61,7 +78,7 @@ let targetObject = null
   return (
     <>
       {/* Render the Builder page */}
-      <BuilderComponent model="page" data={{data:data, logo:logo, buttonText:"View More", style : "9.2rem"}} content={content} />
+      <BuilderComponent model="page" data={{ story:story, buttonText:"View More", style : "9.2rem",params:brandName}} content={content} />
   
     </>
   );

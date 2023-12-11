@@ -23,16 +23,16 @@ export default function ProductDetails() {
   const [product,setProduct] = useState(null)
 const [selectedProdut, setSelectedProduct] = useState(null)
   // get the page content from Builder
-
+const {brandName} = useParams();
   let targetObject = null
   let targetSubCat = null
   let targetProduct = null
   useEffect(()=>{
-    fetch("https://ayathanapayload.payloadcms.app/api/organizationResponse/6569d21b1291e7e3871d9764?locale=undefined&draft=false&depth=8")
+    fetch("https://ayathanapayload.payloadcms.app/api/eventResponse/657198981ec3417c48e421bb?locale=undefined&draft=false&depth=8")
     .then((resposne)=>resposne.json())
     .then((data)=>{
-      console.log(data, cat,subcat)
-      targetObject = data.product_categories.find(category => category.title === cat);
+      let organisation = data.organization.find((brand)=>brand.name===brandName)
+      targetObject = organisation.product_categories.find(category => category.title === cat);
     
       targetSubCat = targetObject.products.find(product=>product.title===subcat)
       console.log(targetSubCat)

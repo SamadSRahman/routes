@@ -21,16 +21,16 @@ function App() {
     <Routes>
     
 
-      <Route path='/address' element={<Address/>}/>
-      <Route path='/' element={<CatchAllRoute/>}/>
-      <Route path='/deals' element={<Deals/>}/>
-      <Route path='/galleries' element={<Gallery/>}/>
-      <Route path='/category/:cat/subcategory/:subcat' element={<Products />} />
-      <Route path='/category/:cat/subcategory/:subcat/products/:productId' element={<ProductDetails />} />
-      <Route path='/brandstory/:story' element={<BrandStory />} />   
+      <Route path='/:brandName/address' element={<Address/>}/>
+      <Route path='/:brandName' element={<Home/>}/>
+      <Route path='/:brandName/deals' element={<Deals/>}/>
+      <Route path='/:brandName/galleries' element={<Gallery/>}/>
+      <Route path='/:brandName/category/:cat/subcategory/:subcat' element={<Products />} />
+      <Route path='/:brandName/category/:cat/subcategory/:subcat/products/:productId' element={<ProductDetails />} />
+      <Route path='/:brandName/brandstory/:story' element={<BrandStory />} />   
       <Route path='/loginpage' element={<Login/>}/>  
       <Route path='/register-page' element={<Register/>}/>  
-      <Route path='/highlight' element={<Highlights/>} />
+      <Route path='/:brandName/highlight' element={<Highlights/>} />
     </Routes>
     </BrowserRouter>
   )

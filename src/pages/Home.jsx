@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { BuilderComponent, builder, useIsPreviewing } from "@builder.io/react";
+import { useParams } from "react-router-dom";
 
 // import ProductsPage from './ProductsPage'
 
@@ -14,15 +15,21 @@ export default function Home() {
   const isPreviewingInBuilder = useIsPreviewing();
   const [notFound, setNotFound] = useState(false);
   const [content, setContent] = useState(null);
-  const [data, setData] = useState({})
-
+  const [brand, setBrand] = useState({})
+    const {brandName} = useParams()
   // get the page content from Builder
   useEffect(()=>{
-    fetch("https://ayathanapayload.payloadcms.app/api/organizationResponse/65646634bcb10bf1cf9999e9")
+    fetch("https://ayathanapayload.payloadcms.app/api/eventResponse/657198981ec3417c48e421bb?locale=undefined&draft=false&depth=8")
     .then((resposne)=>resposne.json())
-    .then((data)=>setData(data))
+    .then((data)=>{setBrand(data.organization.find((brand)=>brand.name===brandName))
+    console.log(data)
+    })
     .catch((error)=>console.log(error))
 },[])
+useEffect(()=>{
+    
+    console.log(brand)
+},[brand])
    useEffect(() => {
     async function fetchContent() {
       const content = await builder
@@ -58,9 +65,10 @@ export default function Home() {
   return (
     <>
       {/* Render the Builder page */}
-      <BuilderComponent model="page" data={{category:data.product_categories, selectedSubCat:0, isPopupVisible:false}} content={content} />
+      <BuilderComponent model="page" data={{ organisation: brand,category:brand.product_categories, selectedSubCat:0, isPopupVisible:false, param:brandName}} content={content} />
       {/* <ProductsPage/> */}
 
     </>
   );
 }
+//

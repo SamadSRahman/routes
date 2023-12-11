@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { BuilderComponent, builder, useIsPreviewing } from "@builder.io/react";
+import { useParams } from "react-router-dom";
 
 
 // Put your API key here
@@ -13,6 +14,8 @@ export default function Deals() {
   const isPreviewingInBuilder = useIsPreviewing();
   const [notFound, setNotFound] = useState(false);
   const [content, setContent] = useState(null);
+  const [organisation, setOrganisation] = useState(null)
+  const {brandName} = useParams()
 
   // get the page content from Builder
    useEffect(() => {
@@ -33,7 +36,18 @@ export default function Deals() {
     }
     fetchContent();
   }, [window.location.pathname]);
-  
+  useEffect(() => {
+    fetch(
+      "https://ayathanapayload.payloadcms.app/api/eventResponse/657198981ec3417c48e421bb?locale=undefined&draft=false&depth=8"
+    )
+      .then((resposne) => resposne.json())
+      .then((data) => {
+        setOrganisation(
+          data.organization.find((brand) => brand.name === brandName)
+        );
+      })
+      .catch((error) => console.log(error));
+  }, []);
   // If no page is found, return 
   // a 404 page from your code.
   // The following hypothetical 
@@ -47,7 +61,7 @@ export default function Deals() {
   return (
     <>
       {/* Render the Builder page */}
-      <BuilderComponent model="page"  content={content} />
+      <BuilderComponent model="page" data={{organisation:organisation, params:brandName}} content={content} />
   
     </>
   );
