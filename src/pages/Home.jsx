@@ -65,7 +65,7 @@ useEffect(()=>{
   return (
     <>
       {/* Render the Builder page */}
-      <BuilderComponent model="page" data={{ organisation: brand,category:brand.product_categories, selectedSubCat:0, isPopupVisible:false, param:brandName}} content={content} />
+      <BuilderComponent model="page" data={{ organisation: brand,category:brand.product_categories, selectedSubCat:0, isPopupVisible:false, param:brandName, test:0}} content={content} />
       {/* <ProductsPage/> */}
 
     </>
