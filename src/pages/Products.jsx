@@ -32,7 +32,7 @@ const {brandName} = useParams()
     fetch("https://ayathanapayload.payloadcms.app/api/eventResponse/657198981ec3417c48e421bb?locale=undefined&draft=false&depth=8")
     .then((resposne)=>resposne.json())
     .then((data)=>{
-      let organisation = data.organization.find((brand)=>brand.name===brandName)
+      let organisation = data.organization.find((brand)=>brand.id===brandName)
       setData(organisation)
         targetObject = organisation.product_categories.find(category => category.title === cat);
         targetProduct = targetObject.products.find(product=>product.title===subcat)

@@ -40,7 +40,7 @@ export default function Address() {
       .then((resposne) => resposne.json())
       .then((data) => {
         setOrganisation(
-          data.organization.find((brand) => brand.name === brandName)
+          data.organization.find((brand) => brand.id === brandName)
         );
       })
       .catch((error) => console.log(error));

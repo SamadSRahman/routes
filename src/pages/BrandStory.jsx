@@ -27,8 +27,8 @@ let targetObject = null
     .then((resposne)=>resposne.json())
     .then((data)=>{
       console.log(data)
-      setOrganisation(data.organization.find((brand)=>brand.name===brandName))
-    targetObject = data.organization.find((brand)=>brand.name===brandName).brand_story.find((bStory)=>bStory.tabTitle===story);
+      setOrganisation(data.organization.find((brand)=>brand.id===brandName))
+    targetObject = data.organization.find((brand)=>brand.id===brandName).brand_story.find((bStory)=>bStory.tabTitle===story);
     setData(targetObject)
     })
     .catch((error)=>console.log(error))
@@ -78,7 +78,7 @@ useEffect(()=>{
   return (
     <>
       {/* Render the Builder page */}
-      <BuilderComponent model="page" data={{ story:story, buttonText:"View More", style : "9.2rem",params:brandName}} content={content} />
+      <BuilderComponent model="page" data={{ selectedStory:data, story:story, buttonText:"View More", style : "9.2rem",params:brandName}} content={content} />
   
     </>
   );

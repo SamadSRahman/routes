@@ -21,7 +21,7 @@ export default function Home() {
   useEffect(()=>{
     fetch("https://ayathanapayload.payloadcms.app/api/eventResponse/657198981ec3417c48e421bb?locale=undefined&draft=false&depth=8")
     .then((resposne)=>resposne.json())
-    .then((data)=>{setBrand(data.organization.find((brand)=>brand.name===brandName))
+    .then((data)=>{setBrand(data.organization.find((brand)=>brand.id===brandName))
     console.log(data)
     })
     .catch((error)=>console.log(error))
