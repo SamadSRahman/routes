@@ -22,34 +22,36 @@ export default function ProductDetails() {
   const {subcat} = useParams() 
   const [product,setProduct] = useState(null)
 const [selectedProdut, setSelectedProduct] = useState(null)
+const [organisation, setOrganisation] = useState(null)
   // get the page content from Builder
 const {brandName} = useParams();
   let targetObject = null
   let targetSubCat = null
   let targetProduct = null
   useEffect(()=>{
-    fetch(`https://ayathanapayload.payloadcms.app/api/organizationResponse/${brandName}?locale=undefined&draft=false&depth=1`)
+    fetch(`https://strapi.ayatana.world/api/organizationResponse/${brandName}?locale=undefined&draft=false&depth=4`)
     .then((resposne)=>resposne.json())
     .then((data)=>{
-      let organisation = data
-      targetObject = organisation.product_categories.find(category => category.title === cat);
-    
+      setOrganisation(data)
+      targetObject = data.product_categories.find(category => category.title === cat);
       targetSubCat = targetObject.products.find(product=>product.title===subcat)
-      console.log(targetSubCat)
+       console.log(targetSubCat)
       targetProduct = targetSubCat.product_variants.find(product=>product.id===productId)
      setProduct(targetProduct)
-
-     let selectedTargetProduct = {
+console.log(targetProduct)
+     let selectedTargetProduct ={}
+if(targetProduct)
+{      selectedTargetProduct = {
       title: targetProduct.title,
       description: targetProduct.description,
       thumbnail:targetProduct.thumbnail.url
-     }
+     }}
     //  console.log(targetProduct)
       setSelectedProduct(selectedTargetProduct)
     })
     .catch((error)=>console.log(error))
-  
-},[])
+
+  },[])
    useEffect(() => {
     async function fetchContent() {
       const content = await builder
@@ -82,7 +84,7 @@ const {brandName} = useParams();
   return (
     <>
       {/* Render the Builder page */}
-      <BuilderComponent model="page" data={{product:product, selectedProduct:selectedProdut, currentImgIndex :0}}  content={content} />
+      <BuilderComponent model="page" data={{organisation:organisation, product:product, selectedProduct:selectedProdut, currentImgIndex :0}}  content={content} />
   
     </>
   );

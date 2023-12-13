@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { BuilderComponent, builder, useIsPreviewing } from "@builder.io/react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 // import ProductsPage from './ProductsPage'
 
@@ -12,6 +12,7 @@ builder.init("403c31c8b557419fb4ad25e34c2b4df5");
 // whether there are changes,
 // and render the content if found
 export default function Home() {
+  const navigate = useNavigate()
   const isPreviewingInBuilder = useIsPreviewing();
   const [notFound, setNotFound] = useState(false);
   const [content, setContent] = useState(null);
@@ -53,6 +54,13 @@ useEffect(()=>{
     fetchContent();
   }, [window.location.pathname]);
   
+//   const productCatNavigation = (id, cat, subCat)=>{
+// navigate(`/${id}/category${cat}/subcategory${subCat}`)
+//   }
+
+//   const alertFunc = (data)=>{
+// alert(data)
+//   }
   // If no page is found, return 
   // a 404 page from your code.
   // The following hypothetical 
@@ -68,7 +76,7 @@ useEffect(()=>{
   return (
     <>
       {/* Render the Builder page */}
-      <BuilderComponent model="page" data={{ organisation: brand,category:brand.product_categories, selectedSubCat:0, isPopupVisible:false, param:brandName, test:0}} content={content} />
+      <BuilderComponent model="page" context={{navigate:()=>navigate(),}} data={{ organisation: brand,category:brand.product_categories, selectedSubCat:0, isPopupVisible:false, param:brandName, test:0}} content={content} />
       {/* <ProductsPage/> */}
 
     </>

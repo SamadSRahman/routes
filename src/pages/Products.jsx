@@ -22,22 +22,25 @@ export default function Products() {
     const {subcat} = useParams();
     const {cat} =  useParams();
 const {brandName} = useParams();
-    let targetObject = null
-    let targetProduct = null;
+    // let targetObject = null
+    // let targetProduct = null;
 
   // get the page content from Builder
   useEffect(()=>{
-    fetch(`https://ayathanapayload.payloadcms.app/api/organizationResponse/${brandName}?locale=undefined&draft=false&depth=1`)
+    fetch(`https://strapi.ayatana.world/api/organizationResponse/${brandName}?locale=undefined&draft=false&depth=2`)
     .then((resposne)=>resposne.json())
     .then((data)=>{
       let organisation = data
       setData(organisation)
-        targetObject = organisation.product_categories.find(category => category.title === cat);
-        targetProduct = targetObject.products.find(product=>product.title===subcat)
-        console.log(targetProduct)
-    setSubCatData(targetProduct)
+    //     targetObject = organisation.product_categories.find(category => category.title === cat);
+    //     targetProduct = targetObject.products.find(product=>product.title===subcat)
+    //     console.log(targetProduct)
+    // setSubCatData(targetProduct)
     })
     .catch((error)=>console.log(error))
+    fetch(`https://strapi.ayatana.world/apps/api/organization/${brandName}/data?keyWord=product_categories&depth=3`)
+    .then((res)=>res.json())
+    .then((data)=>setSubCatData(data.data.find(category => category.title === cat).products.find(product=>product.title===subcat)))
 },[])
 
 
