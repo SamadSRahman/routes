@@ -10,7 +10,7 @@ builder.init("403c31c8b557419fb4ad25e34c2b4df5");
 // set whether you're using the Visual Editor,
 // whether there are changes,
 // and render the content if found
-export default function Deals() {
+export default function BrandStoryDetails() {
   const selectedImgIndex = useRecoilValue(selectedImgIndexAtom);
   const isPreviewingInBuilder = useIsPreviewing();
   const [notFound, setNotFound] = useState(false);
@@ -18,13 +18,15 @@ export default function Deals() {
   const [organisation, setOrganisation] = useState(null);
   const [deals, setDeals] = useState(null);
   const { brandName } = useParams();
+  const { storyId } = useParams();
+  const { story } = useParams();
 
   // get the page content from Builder
   useEffect(() => {
     async function fetchContent() {
       const content = await builder
         .get("page", {
-          url: "/deal",
+          url: "/brand-story-details",
         })
         .promise();
       setContent(content);
@@ -46,9 +48,12 @@ export default function Deals() {
       })
       .catch((error) => console.log(error));
       
-        fetch(`https://strapi.ayatana.world/apps/api/organization/${brandName}/data?keyWord=deals&depth=3`)
+        fetch(`https://strapi.ayatana.world/apps/api/organization/${brandName}/data?keyWord=brand_story&depth=3`)
       .then((res)=>res.json())
-      .then((apiData)=>setDeals(apiData.data))
+      .then((apiData)=>{
+        setDeals(apiData.data.find((ele)=>ele.Title===story).content.find((ele)=>ele.id===storyId))
+    
+    })
       .catch((error)=>console.log(error))
       },[])
 
@@ -72,6 +77,8 @@ export default function Deals() {
           selectedDealIndex: 0,
           params: brandName,
           selectedImgIndex: selectedImgIndex,
+          buttonText:"View More",
+          style:'9.2rem'
         }}
         content={content}
       />

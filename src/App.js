@@ -14,6 +14,9 @@ import Register from './pages/Register'
 import Highlights from './pages/Highlights'
 import Home from './pages/Home'
 import Campaign from './pages/Campaigns'
+import DealsDetails from './pages/DealsDetails'
+import BrandStoryDetails from './pages/BrandStoryDetails'
+import HighlightDetails from './pages/HighlightDetails'
 function App() {
  
 
@@ -33,6 +36,9 @@ function App() {
       <Route path='/register-page' element={<Register/>}/>  
       <Route path='/:brandName/highlight' element={<Highlights/>} />
       <Route path='/:brandName/campaigns/:campaign' element={<Campaign/>} />
+      <Route path='/:brandName/deals/:dealId' element={<DealsDetails/>} />
+      <Route path='/:brandName/highlight/:highlightId' element={<HighlightDetails/>} />
+      <Route path='/:brandName/brandstory/:story/:storyId' element={<BrandStoryDetails/>} />
     </Routes>
     </BrowserRouter>
   )

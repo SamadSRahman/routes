@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { BuilderComponent, builder, useIsPreviewing } from "@builder.io/react";
 import { useParams } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { selectedImgIndexAtom } from "../recoil/store";
 
 
 // Put your API key here
@@ -12,6 +14,7 @@ builder.init("403c31c8b557419fb4ad25e34c2b4df5");
 // whether there are changes,
 // and render the content if found
 export default function ProductDetails() {
+  const selectedImgIndex = useRecoilValue(selectedImgIndexAtom)
   const isPreviewingInBuilder = useIsPreviewing();
   const [notFound, setNotFound] = useState(false);
   const [content, setContent] = useState(null);
@@ -29,7 +32,7 @@ const {brandName} = useParams();
   let targetSubCat = null
   let targetProduct = null
   useEffect(()=>{
-    fetch(`https://strapi.ayatana.world/api/organizationResponse/${brandName}?locale=undefined&draft=false&depth=4`)
+    fetch(`https://strapi.ayatana.world/api/organizationResponse/${brandName}?locale=undefined&draft=false&depth=6`)
     .then((resposne)=>resposne.json())
     .then((data)=>{
       setOrganisation(data)
@@ -84,7 +87,7 @@ if(targetProduct)
   return (
     <>
       {/* Render the Builder page */}
-      <BuilderComponent model="page" data={{organisation:organisation, product:product, selectedProduct:selectedProdut, currentImgIndex :0}}  content={content} />
+      <BuilderComponent model="page" data={{organisation:organisation, product:product, selectedProduct:selectedProdut, currentImgIndex :selectedImgIndex}}  content={content} />
   
     </>
   );

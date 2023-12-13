@@ -4,13 +4,11 @@ import { Builder, withChildren  } from "@builder.io/react";
 import { selectedImgIndexAtom } from '../recoil/store';
 
 function Swipable(props) {
-    const [selectedImgIndex, setSelectedImgIndex] = useRecoilState(selectedImgIndexAtom)
-  const images = [
-    "https://images.pexels.com/photos/18528278/pexels-photo-18528278/free-photo-of-model-posing-on-street-in-black-and-white.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-    "https://images.pexels.com/photos/19227786/pexels-photo-19227786/free-photo-of-pedestrian.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-    "https://images.pexels.com/photos/19329216/pexels-photo-19329216/free-photo-of-a-dog-sitting-on-a-table-with-food-and-a-beer.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-  ];
-
+     const [selectedImgIndex, setSelectedImgIndex] = useRecoilState(selectedImgIndexAtom)
+    // const [selectedImgIndex, setSelectedImgIndex] = useState(props.selectedImgIndex);
+    console.log(props.selectedImgIndex)
+let mediaType = props.mediaType?props.mediaType:"image"
+console.log(mediaType)
 //   const [activeIndex, setActiveIndex] = useState(0);
   const touchStartX = useRef(null);
 
@@ -35,13 +33,14 @@ function Swipable(props) {
 
     touchStartX.current = null;
   };
-
+console.log(props.mediaType)
+console.log(props.arraySize)
   const nextImage = () => {
-    setSelectedImgIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+    setSelectedImgIndex((prevIndex) => (prevIndex === props.arraySize-1  ? 0 : prevIndex + 1))
   };
 
   const prevImage = () => {
-    setSelectedImgIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
+    setSelectedImgIndex((prevIndex) => (prevIndex === 0 ? props.arraySize-1  : prevIndex - 1));
   };
 
   useEffect(() => {
@@ -57,7 +56,13 @@ function Swipable(props) {
 
   return (
     <div className="image-container" style={{width:props.width}}>
-      <img src={props.ImgSrc }alt={`Image ${selectedImgIndex}`} width={props.width} height={props.height} style={{objectFit:'contain'}}/>
+{mediaType.includes("image") &&
+<img src={props.ImgSrc }alt={`Image ${selectedImgIndex}`} width={props.width} height={props.height} style={{objectFit:'contain'}}/>
+}
+{mediaType.includes("video") &&
+<video src= {props.ImgSrc }  width={props.width} height={props.height} autoPlay controls  style={{objectFit:'contain'}}/>
+      
+}
    
     </div>
   );
@@ -81,6 +86,8 @@ Builder.registerComponent(SwipeableWithChildren, {
       { name: "width", type: "text" },
       { name: "height", type: "text" },
       { name: "ImgSrc", type: "text" },
-        {name:"selectedImgIndex", type:'number'}
+      {name:'arraySize', type: 'number'},
+        {name:"selectedImgIndex", type:'number'},
+        {name:"mediaType", type:"text"}
     ],
   });
