@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { BuilderComponent, builder, useIsPreviewing } from "@builder.io/react";
 import { useParams } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { selectedImgIndexAtom } from "../recoil/store";
 
 // Put your API key here
 builder.init("403c31c8b557419fb4ad25e34c2b4df5");
@@ -8,22 +10,21 @@ builder.init("403c31c8b557419fb4ad25e34c2b4df5");
 // set whether you're using the Visual Editor,
 // whether there are changes,
 // and render the content if found
-export default function Address() {
+export default function Campaign() {
+    const selectedImgIndex = useRecoilValue(selectedImgIndexAtom)
   const isPreviewingInBuilder = useIsPreviewing();
   const [notFound, setNotFound] = useState(false);
   const [content, setContent] = useState(null);
   const [organisation, setOrganisation] = useState(null);
-  const [contact,setContact] = useState(null)
   const { brandName } = useParams();
-  const { addressId } = useParams();
-
-  console.log(addressId)
+  const { campaign } = useParams();
+  const [selectedCampaign, setSelectedCampaign] = useState(null);
   // get the page content from Builder
   useEffect(() => {
     async function fetchContent() {
       const content = await builder
         .get("page", {
-          url: "/address",
+          url: "/campaign",
         })
         .promise();
       setContent(content);
@@ -36,22 +37,26 @@ export default function Address() {
       }
     }
     fetchContent();
-  }, [window.location.pathname]);
+  }, []);
   useEffect(() => {
-    fetch(`https://ayathanapayload.payloadcms.app/api/organizationResponse/${brandName}?locale=undefined&draft=false&depth=1`
+    fetch(
+      `https://ayathanapayload.payloadcms.app/api/organizationResponse/${brandName}?locale=undefined&draft=false&depth=1`
     )
       .then((resposne) => resposne.json())
       .then((data) => {
-        setOrganisation(
-          data
-        );
+        console.log(data);
+        setOrganisation(data);
       })
       .catch((error) => console.log(error));
-      fetch(`https://ayathanapayload.payloadcms.app/api/contactResponse/${addressId}?locale=undefined&draft=false&depth=2`)
-      .then((res)=>res.json())
-      .then((data)=>setContact(data))
-    }, []);
-  
+    fetch(
+      `https://ayathanapayload.payloadcms.app/apps/api/organization/${brandName}/data?keyWord=campaigns&depth=2`
+    )
+      .then((res) => res.json())
+      .then((apiData) =>
+        setSelectedCampaign(apiData.data.filter((ele) => ele.type[0] === campaign))
+      )
+      .catch((error) => console.log(error));
+  }, []);
   // If no page is found, return
   // a 404 page from your code.
   // The following hypothetical
@@ -66,7 +71,13 @@ export default function Address() {
       {/* Render the Builder page */}
       <BuilderComponent
         model="page"
-        data={{ organisation: organisation, contact:contact }}
+        data={{
+          organisation: organisation,
+          selectedCampaign: selectedCampaign,
+          params: brandName,
+          selectedIndex : 0,
+          selectedImgIndex:selectedImgIndex
+        }}
         content={content}
       />
     </>

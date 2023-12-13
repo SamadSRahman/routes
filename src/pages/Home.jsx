@@ -19,10 +19,13 @@ export default function Home() {
     const {brandName} = useParams()
   // get the page content from Builder
   useEffect(()=>{
-    fetch("https://ayathanapayload.payloadcms.app/api/eventResponse/657198981ec3417c48e421bb?locale=undefined&draft=false&depth=8")
+    fetch(`https://ayathanapayload.payloadcms.app/api/organizationResponse/${brandName}?locale=undefined&draft=false&depth=2`)
     .then((resposne)=>resposne.json())
-    .then((data)=>{setBrand(data.organization.find((brand)=>brand.id===brandName))
-    console.log(data)
+    .then((data)=>{
+      console.log(data)
+      setBrand(data)
+      // setBrand(data.organization.find((brand)=>brand.id===brandName))
+   
     })
     .catch((error)=>console.log(error))
 },[])

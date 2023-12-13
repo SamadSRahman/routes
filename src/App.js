@@ -13,6 +13,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Highlights from './pages/Highlights'
 import Home from './pages/Home'
+import Campaign from './pages/Campaigns'
 function App() {
  
 
@@ -21,7 +22,7 @@ function App() {
     <Routes>
     
 
-      <Route path='/:brandName/address' element={<Address/>}/>
+      <Route path='/:brandName/address/:addressId' element={<Address/>}/>
       <Route path='/:brandName' element={<Home/>}/>
       <Route path='/:brandName/deals' element={<Deals/>}/>
       <Route path='/:brandName/galleries' element={<Gallery/>}/>
@@ -31,6 +32,7 @@ function App() {
       <Route path='/loginpage' element={<Login/>}/>  
       <Route path='/register-page' element={<Register/>}/>  
       <Route path='/:brandName/highlight' element={<Highlights/>} />
+      <Route path='/:brandName/campaigns/:campaign' element={<Campaign/>} />
     </Routes>
     </BrowserRouter>
   )
