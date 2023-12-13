@@ -22,15 +22,17 @@ export default function Highlights() {
   const [data, setData] = useState(null)
   const {brandName} = useParams()
   useEffect(()=>{
-    fetch(`https://ayathanapayload.payloadcms.app/api/organizationResponse/${brandName}?locale=undefined&draft=false&depth=2`)
+    fetch(`https://strapi.ayatana.world/api/organizationResponse/${brandName}?locale=undefined&draft=false&depth=2`)
     .then((resposne)=>resposne.json())
     .then((data)=>setData(data))
     .catch((error)=>console.log(error))
 },[])
 useEffect(()=>{
-  fetch(`https://ayathanapayload.payloadcms.app/apps/api/organization/${brandName}/data?keyWord=highlights&depth=2`)
-.then((res)=>res.json())
-.then((apiData)=>setHighlights(apiData.data))
+  fetch(`https://strapi.ayatana.world/apps/api/organization/${brandName}/data?keyWord=highlights&depth=3`)
+  .then((res)=>res.json())
+.then((apiData)=>{
+  console.log(apiData)
+  setHighlights(apiData.data)})
 .catch((error)=>console.log(error))
 },[])
   // useEffect(()=>{

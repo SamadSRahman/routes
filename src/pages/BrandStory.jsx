@@ -28,7 +28,7 @@ export default function BrandStory() {
 let targetObject = null
   // get the page content from Builder
   useEffect(()=>{
-    fetch(`https://ayathanapayload.payloadcms.app/api/organizationResponse/${brandName}?locale=undefined&draft=false&depth=3`)
+    fetch(`https://strapi.ayatana.world/api/organizationResponse/${brandName}?locale=undefined&draft=false&depth=2`)
     .then((resposne)=>resposne.json())
     .then((data)=>{
       console.log(data)
@@ -50,9 +50,11 @@ let targetObject = null
 //     },5000)
 // },[])
 useEffect(()=>{
-  fetch(`https://ayathanapayload.payloadcms.app/apps/api/organization/${brandName}/data?keyWord=brand_story&depth=3`)
+  fetch(`https://strapi.ayatana.world/apps/api/organization/${brandName}/data?keyWord=brand_story&depth=3`)
   .then((res)=>res.json())
-  .then((apiData)=>setData(apiData.data.find((Bstory)=>Bstory.Title===story)))
+  .then((apiData)=>{
+    console.log(apiData)
+    setData(apiData.data.find((Bstory)=>Bstory.Title===story))})
 },[])
    useEffect(() => {
     async function fetchContent() {

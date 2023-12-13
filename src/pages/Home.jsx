@@ -19,7 +19,7 @@ export default function Home() {
     const {brandName} = useParams()
   // get the page content from Builder
   useEffect(()=>{
-    fetch(`https://ayathanapayload.payloadcms.app/api/organizationResponse/${brandName}?locale=undefined&draft=false&depth=2`)
+    fetch(`https://strapi.ayatana.world/api/organizationResponse/${brandName}?locale=undefined&draft=false&depth=2`)
     .then((resposne)=>resposne.json())
     .then((data)=>{
       console.log(data)

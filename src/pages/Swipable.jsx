@@ -57,7 +57,7 @@ function Swipable(props) {
 
   return (
     <div className="image-container" style={{width:props.width}}>
-      <img src={props.ImgSrc }alt={`Image ${selectedImgIndex}`} width={props.width} height={props.height}/>
+      <img src={props.ImgSrc }alt={`Image ${selectedImgIndex}`} width={props.width} height={props.height} style={{objectFit:'contain'}}/>
    
     </div>
   );

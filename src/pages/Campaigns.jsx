@@ -39,9 +39,8 @@ export default function Campaign() {
     fetchContent();
   }, []);
   useEffect(() => {
-    fetch(
-      `https://ayathanapayload.payloadcms.app/api/organizationResponse/${brandName}?locale=undefined&draft=false&depth=1`
-    )
+    fetch(`https://strapi.ayatana.world/api/organizationResponse/${brandName}?locale=undefined&draft=false&depth=2`)
+
       .then((resposne) => resposne.json())
       .then((data) => {
         console.log(data);
@@ -49,11 +48,12 @@ export default function Campaign() {
       })
       .catch((error) => console.log(error));
     fetch(
-      `https://ayathanapayload.payloadcms.app/apps/api/organization/${brandName}/data?keyWord=campaigns&depth=2`
+      `https://strapi.ayatana.world/apps/api/organization/${brandName}/data?keyWord=campaigns&depth=1`
     )
       .then((res) => res.json())
       .then((apiData) =>
-        setSelectedCampaign(apiData.data.filter((ele) => ele.type[0] === campaign))
+     { console.log(apiData)
+        setSelectedCampaign(apiData.data.filter((ele) => ele.type[0] === campaign))}
       )
       .catch((error) => console.log(error));
   }, []);

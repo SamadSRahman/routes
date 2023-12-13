@@ -39,16 +39,14 @@ export default function Deals() {
     fetchContent();
   }, [window.location.pathname]);
   useEffect(() => {
-    fetch(
-      `https://ayathanapayload.payloadcms.app/api/organizationResponse/${brandName}?locale=undefined&draft=false&depth=2`
-    )
+    fetch(`https://strapi.ayatana.world/api/organizationResponse/${brandName}?locale=undefined&draft=false&depth=2`)
       .then((resposne) => resposne.json())
       .then((data) => {
         setOrganisation(data);
       })
       .catch((error) => console.log(error));
       
-        fetch(`https://ayathanapayload.payloadcms.app/apps/api/organization/${brandName}/data?keyWord=deals&depth=2`)
+        fetch(`https://strapi.ayatana.world/apps/api/organization/${brandName}/data?keyWord=deals&depth=1`)
       .then((res)=>res.json())
       .then((apiData)=>setDeals(apiData.data))
       .catch((error)=>console.log(error))
