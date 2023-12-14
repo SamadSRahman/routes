@@ -27,7 +27,7 @@ const {brandName} = useParams();
 
   // get the page content from Builder
   useEffect(()=>{
-    fetch(`https://strapi.ayatana.world/api/organizationResponse/${brandName}?locale=undefined&draft=false&depth=2`)
+    fetch(`https://strapi.ayatana.world/api/organizationResponse/${brandName}?locale=undefined&draft=false&depth=6`)
     .then((resposne)=>resposne.json())
     .then((data)=>{
       let organisation = data
@@ -38,7 +38,7 @@ const {brandName} = useParams();
     // setSubCatData(targetProduct)
     })
     .catch((error)=>console.log(error))
-    fetch(`https://strapi.ayatana.world/apps/api/organization/${brandName}/data?keyWord=product_categories&depth=3`)
+    fetch(`https://strapi.ayatana.world/apps/api/organization/${brandName}/data?keyWord=product_categories&depth=6`)
     .then((res)=>res.json())
     .then((data)=>setSubCatData(data.data.find(category => category.title === cat).products.find(product=>product.title===subcat)))
 },[])

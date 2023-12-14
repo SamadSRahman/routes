@@ -38,7 +38,7 @@ console.log(addressId)
     fetchContent();
   }, [window.location.pathname]);
   useEffect(() => {
-    fetch(`https://strapi.ayatana.world/api/organizationResponse/${brandName}?locale=undefined&draft=false&depth=2`)
+    fetch(`https://strapi.ayatana.world/api/organizationResponse/${brandName}?locale=undefined&draft=false&depth=3`)
 
       .then((resposne) => resposne.json())
       .then((data) => {

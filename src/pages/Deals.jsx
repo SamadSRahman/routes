@@ -46,7 +46,7 @@ export default function Deals() {
       })
       .catch((error) => console.log(error));
       
-        fetch(`https://strapi.ayatana.world/apps/api/organization/${brandName}/data?keyWord=deals&depth=3`)
+        fetch(`https://strapi.ayatana.world/apps/api/organization/${brandName}/data?keyWord=deals&depth=5`)
       .then((res)=>res.json())
       .then((apiData)=>setDeals(apiData.data))
       .catch((error)=>console.log(error))
