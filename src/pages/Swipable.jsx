@@ -5,11 +5,8 @@ import { selectedImgIndexAtom } from '../recoil/store';
 
 function Swipable(props) {
      const [selectedImgIndex, setSelectedImgIndex] = useRecoilState(selectedImgIndexAtom)
-    // const [selectedImgIndex, setSelectedImgIndex] = useState(props.selectedImgIndex);
-    console.log(props.selectedImgIndex)
 let mediaType = props.mediaType?props.mediaType:"image"
-console.log(mediaType)
-//   const [activeIndex, setActiveIndex] = useState(0);
+
   const touchStartX = useRef(null);
 
   const handleTouchStart = (e) => {
@@ -33,16 +30,19 @@ console.log(mediaType)
 
     touchStartX.current = null;
   };
-console.log(props.mediaType)
-console.log(props.arraySize)
+// console.log(props.mediaType)
+console.log(props.arraySize-1)
+console.log("selected img index:", selectedImgIndex)
   const nextImage = () => {
-    setSelectedImgIndex((prevIndex) => (prevIndex === props.arraySize-1  ? 0 : prevIndex + 1))
+    setSelectedImgIndex((prevIndex) => (prevIndex === props.arraySize-1 ? 0 : prevIndex + 1));
   };
 
   const prevImage = () => {
     setSelectedImgIndex((prevIndex) => (prevIndex === 0 ? props.arraySize-1  : prevIndex - 1));
   };
-
+useEffect(()=>{
+console.log("selected img index:", selectedImgIndex)
+},[selectedImgIndex])
   useEffect(() => {
     const imageContainer = document.querySelector('.image-container');
     imageContainer.addEventListener('touchstart', handleTouchStart, false);
@@ -52,7 +52,7 @@ console.log(props.arraySize)
       imageContainer.removeEventListener('touchstart', handleTouchStart);
       imageContainer.removeEventListener('touchmove', handleTouchMove);
     };
-  }, []); // Ensure it runs only once on mount
+  }, [selectedImgIndex]); // Ensure it runs only once on mount
 
   return (
     <div className="image-container" style={{width:props.width}}>
@@ -60,7 +60,7 @@ console.log(props.arraySize)
 <img src={props.ImgSrc }alt={`Image ${selectedImgIndex}`} width={props.width} height={props.height} style={{objectFit:'contain'}}/>
 }
 {mediaType.includes("video") &&
-<video src= {props.ImgSrc }  width={props.width} height={props.height} autoPlay controls  style={{objectFit:'contain'}}/>
+<video src= {props.ImgSrc }  width={props.width} height={props.height} autoPlay style={{objectFit:'contain'}}/>
       
 }
    

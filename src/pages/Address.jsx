@@ -17,7 +17,7 @@ export default function Address() {
   const { brandName } = useParams();
   const { addressId } = useParams();
 
-  console.log(addressId)
+console.log(addressId)
   // get the page content from Builder
   useEffect(() => {
     async function fetchContent() {
@@ -38,8 +38,8 @@ export default function Address() {
     fetchContent();
   }, [window.location.pathname]);
   useEffect(() => {
-    fetch(`https://ayathanapayload.payloadcms.app/api/organizationResponse/${brandName}?locale=undefined&draft=false&depth=1`
-    )
+    fetch(`https://strapi.ayatana.world/api/organizationResponse/${brandName}?locale=undefined&draft=false&depth=2`)
+
       .then((resposne) => resposne.json())
       .then((data) => {
         setOrganisation(
@@ -47,9 +47,11 @@ export default function Address() {
         );
       })
       .catch((error) => console.log(error));
-      fetch(`https://ayathanapayload.payloadcms.app/api/contactResponse/${addressId}?locale=undefined&draft=false&depth=2`)
+      fetch(`https://strapi.ayatana.world/api/contactResponse/${addressId}?locale=undefined&draft=false&depth=2`)
       .then((res)=>res.json())
-      .then((data)=>setContact(data))
+      .then((data)=>{
+        console.log(data)
+        setContact(data)})
     }, []);
   
   // If no page is found, return

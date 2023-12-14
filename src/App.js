@@ -37,7 +37,7 @@ function App() {
       <Route path='/:brandName/highlight' element={<Highlights/>} />
       <Route path='/:brandName/campaigns/:campaign' element={<Campaign/>} />
       <Route path='/:brandName/deals/:dealId' element={<DealsDetails/>} />
-      <Route path='/:brandName/highlight/:highlightId' element={<HighlightDetails/>} />
+      <Route path='/:brandName/highlights/:highlightId' element={<HighlightDetails/>} />
       <Route path='/:brandName/brandstory/:story/:storyId' element={<BrandStoryDetails/>} />
     </Routes>
     </BrowserRouter>

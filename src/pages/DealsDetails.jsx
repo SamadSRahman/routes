@@ -76,6 +76,8 @@ export default function DealsDetails() {
           selectedDealIndex: 0,
           params: brandName,
           selectedImgIndex: selectedImgIndex,
+          buttonText:"View More",
+          style:'7rem',
         }}
         content={content}
       />

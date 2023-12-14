@@ -17,6 +17,7 @@ export default function BrandStoryDetails() {
   const [content, setContent] = useState(null);
   const [organisation, setOrganisation] = useState(null);
   const [deals, setDeals] = useState(null);
+  const [selectedStory,setSelectedStory] = useState(null)
   const { brandName } = useParams();
   const { storyId } = useParams();
   const { story } = useParams();
@@ -26,7 +27,7 @@ export default function BrandStoryDetails() {
     async function fetchContent() {
       const content = await builder
         .get("page", {
-          url: "/brand-story-details",
+          url: "/story-details",
         })
         .promise();
       setContent(content);
@@ -51,6 +52,8 @@ export default function BrandStoryDetails() {
         fetch(`https://strapi.ayatana.world/apps/api/organization/${brandName}/data?keyWord=brand_story&depth=3`)
       .then((res)=>res.json())
       .then((apiData)=>{
+        console.log(apiData)
+        setSelectedStory(apiData.data.find((ele)=>ele.Title===story))
         setDeals(apiData.data.find((ele)=>ele.Title===story).content.find((ele)=>ele.id===storyId))
     
     })
@@ -73,12 +76,14 @@ export default function BrandStoryDetails() {
         model="page"
         data={{
           organisation: organisation,
-          deals:deals,
+       
           selectedDealIndex: 0,
           params: brandName,
           selectedImgIndex: selectedImgIndex,
           buttonText:"View More",
-          style:'9.2rem'
+          style:'9.2rem',
+          deals:deals,
+          selectedStory:selectedStory
         }}
         content={content}
       />
