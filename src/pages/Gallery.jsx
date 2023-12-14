@@ -49,6 +49,9 @@ export default function Gallery() {
   .then((apiData)=>setGalleries(apiData.data))
   .catch((error)=>console.log(error))
   },[])
+  const scroll = () =>{
+    window.scrollTo(0,0)
+  }
   // If no page is found, return 
   // a 404 page from your code.
   // The following hypothetical 

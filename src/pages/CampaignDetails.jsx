@@ -10,7 +10,7 @@ builder.init("403c31c8b557419fb4ad25e34c2b4df5");
 // set whether you're using the Visual Editor,
 // whether there are changes,
 // and render the content if found
-export default function Campaign() {
+export default function CampaignDetails() {
     const selectedImgIndex = useRecoilValue(selectedImgIndexAtom)
   const isPreviewingInBuilder = useIsPreviewing();
   const [notFound, setNotFound] = useState(false);
@@ -18,18 +18,18 @@ export default function Campaign() {
   const [organisation, setOrganisation] = useState(null);
   const { brandName } = useParams();
   const { campaign } = useParams();
+  const { campaignId } = useParams();
   const [selectedCampaign, setSelectedCampaign] = useState(null);
-  const [availablePrevCampaigns, setAvailablePrevCampaings] = useState(null);
-  const [availableOngoingCampaigns, setAvailableOngoingCampaings] =
-    useState(null);
-  const [availableUpcomingCampaigns, setAvailableUpcomingCampaings] =
-    useState(null);
+  const [campaignDetail, setCampaignDetail] = useState(null)
+  const [availablePrevCampaigns, setAvailablePrevCampaings] = useState(null)
+  const [availableOngoingCampaigns, setAvailableOngoingCampaings] = useState(null)
+  const [availableUpcomingCampaigns, setAvailableUpcomingCampaings] = useState(null)
   // get the page content from Builder
   useEffect(() => {
     async function fetchContent() {
       const content = await builder
         .get("page", {
-          url: "/campaign",
+          url: "/campaign-details",
         })
         .promise();
       setContent(content);
@@ -51,14 +51,14 @@ export default function Campaign() {
         console.log(data);
         setOrganisation(data);
         setAvailableOngoingCampaings(
-          data.campaigns.filter((ele) => ele.type === "On going")
-        );
-        setAvailablePrevCampaings(
-          data.campaigns.filter((ele) => ele.type === "Previous")
-        );
-        setAvailableUpcomingCampaings(
-          data.campaigns.filter((ele) => ele.type === "Upcoming")
-        );
+            data.campaigns.filter((ele) => ele.type === "On going")
+          );
+          setAvailablePrevCampaings(
+            data.campaigns.filter((ele) => ele.type === "Previous")
+          );
+          setAvailableUpcomingCampaings(
+            data.campaigns.filter((ele) => ele.type === "Upcoming")
+          );
       })
       .catch((error) => console.log(error));
     fetch(
@@ -67,7 +67,10 @@ export default function Campaign() {
       .then((res) => res.json())
       .then((apiData) =>
      { console.log(apiData)
-        setSelectedCampaign(apiData.data.filter((ele) => ele.type === campaign))}
+        setSelectedCampaign(apiData.data.filter((ele) => ele.type === campaign))
+        setCampaignDetail(apiData.data.filter((ele) => ele.type === campaign).find((element)=>element.id===campaignId))
+       
+    }
       )
       .catch((error) => console.log(error));
   }, []);
@@ -91,9 +94,7 @@ export default function Campaign() {
           params: brandName,
           selectedIndex : 0,
           selectedImgIndex:selectedImgIndex,
-          availablePrevCampaigns:availablePrevCampaigns,
-          availableOngoingCampaigns:availableOngoingCampaigns,
-          availableUpcomingCampaigns:availableUpcomingCampaigns,
+          deals:campaignDetail,
         }}
         content={content}
       />

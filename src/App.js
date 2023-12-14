@@ -17,6 +17,7 @@ import Campaign from './pages/Campaigns'
 import DealsDetails from './pages/DealsDetails'
 import BrandStoryDetails from './pages/BrandStoryDetails'
 import HighlightDetails from './pages/HighlightDetails'
+import CampaignDetails from './pages/CampaignDetails'
 function App() {
  
 
@@ -36,6 +37,7 @@ function App() {
       <Route path='/register-page' element={<Register/>}/>  
       <Route path='/:brandName/highlight' element={<Highlights/>} />
       <Route path='/:brandName/campaigns/:campaign' element={<Campaign/>} />
+      <Route path='/:brandName/campaigns/:campaign/selectedcampaign/:campaignId' element={<CampaignDetails/>} />
       <Route path='/:brandName/deals/:dealId' element={<DealsDetails/>} />
       <Route path='/:brandName/highlights/:highlightId' element={<HighlightDetails/>} />
       <Route path='/:brandName/brandstory/:story/:storyId' element={<BrandStoryDetails/>} />
