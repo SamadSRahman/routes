@@ -18,6 +18,7 @@ import DealsDetails from './pages/DealsDetails'
 import BrandStoryDetails from './pages/BrandStoryDetails'
 import HighlightDetails from './pages/HighlightDetails'
 import CampaignDetails from './pages/CampaignDetails'
+import Events from './pages/Events'
 function App() {
  
 
@@ -28,6 +29,7 @@ function App() {
 
       <Route path='/:brandName/address/:addressId' element={<Address/>}/>
       <Route path='/:brandName' element={<Home/>}/>
+      <Route path='/event/:eventId' element={<Events/>}/>
       <Route path='/:brandName/deals' element={<Deals/>}/>
       <Route path='/:brandName/galleries' element={<Gallery/>}/>
       <Route path='/:brandName/category/:cat/subcategory/:subcat' element={<Products />} />

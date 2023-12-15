@@ -20,6 +20,8 @@ export default function Campaign() {
   const { campaign } = useParams();
   const [selectedCampaign, setSelectedCampaign] = useState(null);
   const [availablePrevCampaigns, setAvailablePrevCampaings] = useState(null);
+  const [isPopupVisible,setIsPopupVisible] = useState(false)
+
   const [availableOngoingCampaigns, setAvailableOngoingCampaings] =
     useState(null);
   const [availableUpcomingCampaigns, setAvailableUpcomingCampaings] =
@@ -67,6 +69,11 @@ export default function Campaign() {
       .then((res) => res.json())
       .then((apiData) =>
      { console.log(apiData)
+      const test = apiData.data.filter((ele) => ele.type === campaign)
+      console.log(test)
+      if(test.length<1){
+        setIsPopupVisible(true)
+      }
         setSelectedCampaign(apiData.data.filter((ele) => ele.type === campaign))}
       )
       .catch((error) => console.log(error));
@@ -94,6 +101,7 @@ export default function Campaign() {
           availablePrevCampaigns:availablePrevCampaigns,
           availableOngoingCampaigns:availableOngoingCampaigns,
           availableUpcomingCampaigns:availableUpcomingCampaigns,
+          isPopupVisible:isPopupVisible,
         }}
         content={content}
       />

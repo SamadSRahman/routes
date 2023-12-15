@@ -22,6 +22,7 @@ export default function BrandStory() {
   const [organisation, setOrganisation] = useState(null);
   const [data, setData] = useState(null);
   const [logo, setLogo] = useState(null);
+  const [isPopupVisible,setIsPopupVisible] = useState(false)
 
 
   let targetObject = null;
@@ -46,10 +47,16 @@ export default function BrandStory() {
       .then((res) => res.json())
       .then((apiData) => {
         console.log(apiData);
+        const test = apiData.data.find((Bstory) => Bstory.Title === story)
         setData(apiData.data.find((Bstory) => Bstory.Title === story));
-      
+        if(!test){
+          setIsPopupVisible(true)
+        }
       });
   }, []);
+  useEffect(()=>{
+    console.log(data)
+  },[data])
   useEffect(() => {
     async function fetchContent() {
       const content = await builder
@@ -91,6 +98,7 @@ export default function BrandStory() {
           buttonText: "View More",
           style: "4rem",
           params: brandName,
+          isPopupVisible:isPopupVisible
           
         }}
         content={content}
