@@ -11,7 +11,7 @@ builder.init("403c31c8b557419fb4ad25e34c2b4df5");
 // set whether you're using the Visual Editor,
 // whether there are changes,
 // and render the content if found
-export default function Products() {
+export default function Categories() {
   const isPreviewingInBuilder = useIsPreviewing();
   const [notFound, setNotFound] = useState(false);
   const [content, setContent] = useState(null);
@@ -24,7 +24,7 @@ export default function Products() {
 const {brandName} = useParams();
     // let targetObject = null
     // let targetProduct = null;
-
+console.log("hi")
   // get the page content from Builder
   useEffect(()=>{
     fetch(`https://strapi.ayatana.world/api/organizationResponse/${brandName}?locale=undefined&draft=false&depth=6`)
@@ -40,7 +40,7 @@ const {brandName} = useParams();
     .catch((error)=>console.log(error))
     fetch(`https://strapi.ayatana.world/apps/api/organization/${brandName}/data?keyWord=product_categories&depth=6`)
     .then((res)=>res.json())
-    .then((data)=>setSubCatData(data.data.find(category => category.id === cat).products.find(product=>product.title===subcat)))
+    .then((data)=>setSubCatData(data.data.find(category => category.title === cat).products.find(product=>product.title===subcat)))
 },[])
 
 
@@ -48,7 +48,7 @@ const {brandName} = useParams();
     async function fetchContent() {
       const content = await builder
         .get("page", {
-          url: "/product"
+          url: "/category-product"
         })
         .promise();
       setContent(content);

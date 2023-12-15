@@ -19,6 +19,7 @@ import BrandStoryDetails from './pages/BrandStoryDetails'
 import HighlightDetails from './pages/HighlightDetails'
 import CampaignDetails from './pages/CampaignDetails'
 import Events from './pages/Events'
+import Categories from './pages/Categories'
 function App() {
  
 
@@ -34,6 +35,7 @@ function App() {
       <Route path='/:brandName/galleries' element={<Gallery/>}/>
       <Route path='/:brandName/category/:cat/subcategory/:subcat' element={<Products />} />
       <Route path='/:brandName/category/:cat/subcategory/:subcat/products/:productId' element={<ProductDetails />} />
+      <Route path='/:brandName/cat/:cat' element={<Categories />} />
       <Route path='/:brandName/brandstory/:story' element={<BrandStory />} />   
       <Route path='/loginpage' element={<Login/>}/>  
       <Route path='/register-page' element={<Register/>}/>  
